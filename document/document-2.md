@@ -41,4 +41,30 @@ db.test.aggregate([
     { $project: { count: 1, "person.name": 1, "person.email": 1, "person.phone": 1 } }
 ])
 
+// group operation
+
+db.test.aggregate([
+    {
+        $group: {
+            _id: null,
+            totalSalary: {
+                $sum: "$salary"
+            },
+            maxSalary: { $max: "$salary" },
+            minSalary: { $min: "$salary" },
+            avgSalary: { $avg: "$salary" }
+
+        }
+    },
+    {
+        $project: {
+            totalSalary: 1,
+            maxSalary: 1,
+            minimumSalary: "$minSalary",
+            avgSalary: 1,
+            minMaxDiff: {$subtract: ["$maxSalary","$minSalary"]}
+        }
+    }
+])
+
 ```
