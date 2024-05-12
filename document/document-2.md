@@ -28,6 +28,12 @@ db.test.aggregate([
     { $merge: "test" }
 ])
 
+// aggregate-group-count-p.$name
+
+db.test.aggregate([
+    { $group: { _id: "$gender", count: { $sum: 1 }, personName: { $push: "$name" } } }
+])
+
 
 
 ```
