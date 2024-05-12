@@ -102,4 +102,27 @@ db.test.aggregate([
     { $project: { count: 1 } }
 ])
 
+// use facet multiple pipeline
+
+db.test.aggregate([
+    {
+        $facet: {
+            "friendsCount": [
+                { $unwind: "$friends" },
+                { $group: { _id: "$friends", count: { $sum: 1 } } }
+            ],
+            "educationCount": [
+                { $unwind: "$education" },
+                { $group: { _id: "$education", count: { $sum: 1 } } }
+            ],
+            "skillsCount": [
+                { $unwind: "$skills" },
+                { $group: { _id: "$skills", count: { $sum: 1 } } }
+            ]
+
+
+        }
+    }
+])
+
 ```
