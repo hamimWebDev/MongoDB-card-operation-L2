@@ -79,4 +79,27 @@ db.test.aggregate([
     { $group: { _id: "$age", interestsPerAge: { $push: "$interests" } } }
 ])
 
+// use-bucket-sort-limit
+
+db.test.aggregate([
+    {
+        $bucket: {    //bucket
+            groupBy: "$age",
+            boundaries: [20, 40, 60, 80],
+            default: "GT:80",
+            output: {
+                "count": { $sum: 1 },
+                "PersonName": { $push: "$$ROOT" }
+            }
+
+        }
+    },
+    //sort
+    { $sort: { count: -1 } },
+    //limit
+    { $limit: 4 },
+    //project
+    { $project: { count: 1 } }
+])
+
 ```
