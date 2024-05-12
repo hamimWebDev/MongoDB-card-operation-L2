@@ -139,4 +139,7 @@ db.orders.aggregate([
     }
 ])
 
+// create new index
+
+db.test.createIndex({ email: 1 })
 ```
