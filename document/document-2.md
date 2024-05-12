@@ -20,6 +20,14 @@ db.test.aggregate([
      {$out: "Heros"}
  ])
 
+// aggregate-marge-ThisCollection
+
+db.test.aggregate([
+    { $match: { gender: 'Male' } },
+    { $addFields: { course: "level-2", eduTech: "programming Hero" } },
+    { $merge: "test" }
+])
+
 
 
 ```
