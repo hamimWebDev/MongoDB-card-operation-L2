@@ -34,6 +34,11 @@ db.test.aggregate([
     { $group: { _id: "$gender", count: { $sum: 1 }, personName: { $push: "$name" } } }
 ])
 
+//aggregate-group-p.$$ROOT
 
+db.test.aggregate([
+    { $group: { _id: "$gender", count: { $sum: 1 }, person: { $push: "$$ROOT" } } },
+    { $project: { count: 1, "person.name": 1, "person.email": 1, "person.phone": 1 } }
+])
 
 ```
