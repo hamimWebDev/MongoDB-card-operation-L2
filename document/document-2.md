@@ -142,4 +142,9 @@ db.orders.aggregate([
 // create new index
 
 db.test.createIndex({ email: 1 })
+
+// delete a index
+
+db.test.dropIndex({ email: 1 })
+
 ```
